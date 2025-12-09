@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Obando_Erick_Algoritmos
+namespace Ayo_Alisson_Algoritmos
 {
     internal abstract class TablaPuntos
     {
@@ -43,6 +43,21 @@ namespace Obando_Erick_Algoritmos
         {
             graphics = picCanvas.CreateGraphics();
             graphics.DrawRectangle(penR, x, y, 1, 1);
+        }
+
+        // Método para graficar píxel con intensidad (para anti-aliasing de Xiaolin Wu)
+        public void GraficarPixelConIntensidad(PictureBox picCanvas, int x, int y, float intensidad, Color color)
+        {
+            graphics = picCanvas.CreateGraphics();
+            
+            // Calcular el color con la intensidad aplicada
+            int alpha = (int)(intensidad * 255);
+            Color colorConIntensidad = Color.FromArgb(alpha, color.R, color.G, color.B);
+            
+            using (SolidBrush brush = new SolidBrush(colorConIntensidad))
+            {
+                graphics.FillRectangle(brush, x, y, 1, 1);
+            }
         }
 
     }

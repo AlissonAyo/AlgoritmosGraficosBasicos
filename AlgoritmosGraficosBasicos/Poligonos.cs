@@ -6,26 +6,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Obando_Erick_Algoritmos
+namespace Ayo_Alisson_Algoritmos
 {
     internal class Poligonos : AlgortimoBresenham
     {
         public float mSide;
         private int numberSide; 
         private const float SF = 20; 
-        AlgoritmoCirculoBresenham algoritmoCirculoBresenham = new AlgoritmoCirculoBresenham();
+        
         public Poligonos()
         {
             mSide = 0.0f;
         }
 
-        Pen pen = new Pen(Color.Black, 1);
+        new Pen pen = new Pen(Color.Black, 1);
 
 
         public  void GraficarPoligono(PictureBox picCanvas, int x, int y)
         {
-       
-
             float size = mSide * SF;
             float xo = picCanvas.Width / 2f;
             float yo = picCanvas.Height / 2f;

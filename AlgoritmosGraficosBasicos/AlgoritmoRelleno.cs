@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Obando_Erick_Algoritmos
+namespace Ayo_Alisson_Algoritmos
 {
     internal class AlgoritmoRelleno : TablaPuntos
     {

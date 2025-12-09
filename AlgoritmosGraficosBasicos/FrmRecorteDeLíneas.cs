@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
-namespace Obando_Erick_Algoritmos
+namespace Ayo_Alisson_Algoritmos
 {
     public partial class FrmRecorteDeLíneas : Form
     {

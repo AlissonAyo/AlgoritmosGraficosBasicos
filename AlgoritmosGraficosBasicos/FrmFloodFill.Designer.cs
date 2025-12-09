@@ -1,6 +1,6 @@
-ï»¿namespace Ayo_Alisson_Algoritmos
+namespace Ayo_Alisson_Algoritmos
 {
-    partial class FrmRecortePoligono
+    partial class FrmFloodFill
     {
         /// <summary>
         /// Required designer variable.
@@ -30,10 +30,11 @@
         {
             this.picCanvas = new System.Windows.Forms.PictureBox();
             this.pnlMenu = new System.Windows.Forms.Panel();
-            this.lblResultado = new System.Windows.Forms.Label();
             this.lblInstrucciones = new System.Windows.Forms.Label();
             this.btnReiniciar = new System.Windows.Forms.Button();
             this.btnCalcular = new System.Windows.Forms.Button();
+            this.cmbFiguras = new System.Windows.Forms.ComboBox();
+            this.lblFiguras = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picCanvas)).BeginInit();
             this.pnlMenu.SuspendLayout();
@@ -48,16 +49,16 @@
             this.picCanvas.Size = new System.Drawing.Size(600, 500);
             this.picCanvas.TabIndex = 0;
             this.picCanvas.TabStop = false;
-            this.picCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.FrmRecortePoligono_Paint);
             this.picCanvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picCanvas_MouseClick);
             // 
             // pnlMenu
             // 
-            this.pnlMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(23)))), ((int)(((byte)(94)))));
-            this.pnlMenu.Controls.Add(this.lblResultado);
+            this.pnlMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
             this.pnlMenu.Controls.Add(this.lblInstrucciones);
             this.pnlMenu.Controls.Add(this.btnReiniciar);
             this.pnlMenu.Controls.Add(this.btnCalcular);
+            this.pnlMenu.Controls.Add(this.cmbFiguras);
+            this.pnlMenu.Controls.Add(this.lblFiguras);
             this.pnlMenu.Controls.Add(this.lblTitulo);
             this.pnlMenu.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlMenu.Location = new System.Drawing.Point(630, 0);
@@ -67,66 +68,79 @@
             // 
             // lblTitulo
             // 
+            this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(165)))), ((int)(((byte)(0)))));
-            this.lblTitulo.Location = new System.Drawing.Point(15, 20);
+            this.lblTitulo.ForeColor = System.Drawing.Color.Orange;
+            this.lblTitulo.Location = new System.Drawing.Point(45, 20);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(170, 60);
+            this.lblTitulo.Size = new System.Drawing.Size(110, 20);
             this.lblTitulo.TabIndex = 0;
-            this.lblTitulo.Text = "SUTHERLAND-\r\nHODGMAN";
-            this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblTitulo.Text = "FLOOD FILL";
+            // 
+            // lblFiguras
+            // 
+            this.lblFiguras.AutoSize = true;
+            this.lblFiguras.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFiguras.ForeColor = System.Drawing.Color.Orange;
+            this.lblFiguras.Location = new System.Drawing.Point(15, 70);
+            this.lblFiguras.Name = "lblFiguras";
+            this.lblFiguras.Size = new System.Drawing.Size(67, 17);
+            this.lblFiguras.TabIndex = 1;
+            this.lblFiguras.Text = "FIGURA";
+            // 
+            // cmbFiguras
+            // 
+            this.cmbFiguras.BackColor = System.Drawing.Color.White;
+            this.cmbFiguras.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFiguras.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbFiguras.Location = new System.Drawing.Point(15, 100);
+            this.cmbFiguras.Name = "cmbFiguras";
+            this.cmbFiguras.Size = new System.Drawing.Size(170, 23);
+            this.cmbFiguras.TabIndex = 2;
+            this.cmbFiguras.SelectedIndexChanged += new System.EventHandler(this.cmbFiguras_SelectedIndexChanged);
             // 
             // btnCalcular
             // 
-            this.btnCalcular.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(165)))), ((int)(((byte)(0)))));
+            this.btnCalcular.BackColor = System.Drawing.Color.Orange;
             this.btnCalcular.FlatAppearance.BorderSize = 0;
             this.btnCalcular.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCalcular.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCalcular.ForeColor = System.Drawing.Color.White;
-            this.btnCalcular.Location = new System.Drawing.Point(15, 100);
+            this.btnCalcular.Location = new System.Drawing.Point(15, 150);
             this.btnCalcular.Name = "btnCalcular";
             this.btnCalcular.Size = new System.Drawing.Size(170, 35);
-            this.btnCalcular.TabIndex = 1;
+            this.btnCalcular.TabIndex = 3;
             this.btnCalcular.Text = "CALCULAR";
             this.btnCalcular.UseVisualStyleBackColor = false;
             this.btnCalcular.Click += new System.EventHandler(this.btnCalcular_Click);
             // 
             // btnReiniciar
             // 
-            this.btnReiniciar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(165)))), ((int)(((byte)(0)))));
+            this.btnReiniciar.BackColor = System.Drawing.Color.Orange;
             this.btnReiniciar.FlatAppearance.BorderSize = 0;
             this.btnReiniciar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReiniciar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReiniciar.ForeColor = System.Drawing.Color.White;
-            this.btnReiniciar.Location = new System.Drawing.Point(15, 150);
+            this.btnReiniciar.Location = new System.Drawing.Point(15, 200);
             this.btnReiniciar.Name = "btnReiniciar";
             this.btnReiniciar.Size = new System.Drawing.Size(170, 35);
-            this.btnReiniciar.TabIndex = 2;
+            this.btnReiniciar.TabIndex = 4;
             this.btnReiniciar.Text = "REINICIAR";
             this.btnReiniciar.UseVisualStyleBackColor = false;
             this.btnReiniciar.Click += new System.EventHandler(this.btnReiniciar_Click);
             // 
             // lblInstrucciones
             // 
-            this.lblInstrucciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInstrucciones.ForeColor = System.Drawing.Color.White;
-            this.lblInstrucciones.Location = new System.Drawing.Point(15, 200);
+            this.lblInstrucciones.Location = new System.Drawing.Point(15, 260);
             this.lblInstrucciones.Name = "lblInstrucciones";
-            this.lblInstrucciones.Size = new System.Drawing.Size(170, 80);
-            this.lblInstrucciones.TabIndex = 3;
-            this.lblInstrucciones.Text = "Da un click en el Ã¡rea para activarla.\n\nClick izquierdo:\nAgrega punto\n\nClick derecho:\nTermina figura";
-            this.lblInstrucciones.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.lblInstrucciones.Size = new System.Drawing.Size(170, 200);
+            this.lblInstrucciones.TabIndex = 5;
+            this.lblInstrucciones.Text = "INSTRUCCIONES:\r\n\r\n1. Selecciona una figura del menú\r\n\r\n2. Presiona CALCULAR para" +
+    " ver el relleno\r\n\r\n3. Para figura personalizada, haz 3 o más clicks en el canvas" +
+    "\r\n\r\n4. Usa REINICIAR para limpiar";
             // 
-            // lblResultado
-            // 
-            this.lblResultado.ForeColor = System.Drawing.Color.White;
-            this.lblResultado.Location = new System.Drawing.Point(15, 290);
-            this.lblResultado.Name = "lblResultado";
-            this.lblResultado.Size = new System.Drawing.Size(170, 220);
-            this.lblResultado.TabIndex = 4;
-            this.lblResultado.Text = "";
-            // 
-            // FrmRecortePoligono
+            // FrmFloodFill
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -134,11 +148,12 @@
             this.ClientSize = new System.Drawing.Size(830, 524);
             this.Controls.Add(this.pnlMenu);
             this.Controls.Add(this.picCanvas);
-            this.Name = "FrmRecortePoligono";
-            this.Text = "Sutherland-Hodgman - Recorte de PolÃ­gonos";
-            this.Load += new System.EventHandler(this.FrmRecortePoligono_Load);
+            this.Name = "FrmFloodFill";
+            this.Text = "Algoritmo Flood Fill - Relleno por Inundación";
+            this.Load += new System.EventHandler(this.FrmFloodFill_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picCanvas)).EndInit();
             this.pnlMenu.ResumeLayout(false);
+            this.pnlMenu.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -148,9 +163,10 @@
         private System.Windows.Forms.PictureBox picCanvas;
         private System.Windows.Forms.Panel pnlMenu;
         private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.Label lblFiguras;
+        private System.Windows.Forms.ComboBox cmbFiguras;
         private System.Windows.Forms.Button btnCalcular;
         private System.Windows.Forms.Button btnReiniciar;
         private System.Windows.Forms.Label lblInstrucciones;
-        private System.Windows.Forms.Label lblResultado;
     }
 }

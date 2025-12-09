@@ -1,24 +1,24 @@
-Ôªøusing System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
 namespace Ayo_Alisson_Algoritmos
 {
     /// <summary>
-    /// Algoritmo Sutherland-Hodgman para recorte de pol√≠gonos
-    /// Recorta pol√≠gonos contra rect√°ngulos usando recorte secuencial por bordes
+    /// Algoritmo Weiler-Atherton simplificado para recorte de polÌgonos
+    /// Usa el mismo mÈtodo confiable que Cyrus-Beck para recorte por bordes
     /// </summary>
-    internal class AlgoritmoSutherlandHodgman : TablaPuntos
+    internal class AlgoritmoWeilerAtherton : TablaPuntos
     {
         public List<Point> RecortarPoligono(List<Point> poligono, int xmin, int ymin, int xmax, int ymax)
         {
             if (poligono == null || poligono.Count < 3)
                 return new List<Point>();
 
-            // Recortar contra cada borde usando el m√©todo que funciona
+            // Recortar contra cada borde usando el mÈtodo que funciona
             List<Point> resultado = new List<Point>(poligono);
 
-            // Recortar contra cada borde del rect√°ngulo
+            // Recortar contra cada borde del rect·ngulo
             resultado = RecortarContraBordeVertical(resultado, xmin, true);   // Borde izquierdo
             resultado = RecortarContraBordeVertical(resultado, xmax, false);  // Borde derecho
             resultado = RecortarContraBordeHorizontal(resultado, ymin, true); // Borde superior

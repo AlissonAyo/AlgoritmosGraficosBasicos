@@ -1,4 +1,4 @@
-﻿namespace Obando_Erick_Algoritmos
+﻿namespace Ayo_Alisson_Algoritmos
 {
     partial class FrmRecorteDeLíneas
     {

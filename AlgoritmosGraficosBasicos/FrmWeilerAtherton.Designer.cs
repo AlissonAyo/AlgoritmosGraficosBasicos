@@ -1,6 +1,6 @@
-﻿namespace Ayo_Alisson_Algoritmos
+namespace Ayo_Alisson_Algoritmos
 {
-    partial class FrmRecortePoligono
+    partial class FrmWeilerAtherton
     {
         /// <summary>
         /// Required designer variable.
@@ -48,7 +48,6 @@
             this.picCanvas.Size = new System.Drawing.Size(600, 500);
             this.picCanvas.TabIndex = 0;
             this.picCanvas.TabStop = false;
-            this.picCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.FrmRecortePoligono_Paint);
             this.picCanvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picCanvas_MouseClick);
             // 
             // pnlMenu
@@ -73,7 +72,7 @@
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(170, 60);
             this.lblTitulo.TabIndex = 0;
-            this.lblTitulo.Text = "SUTHERLAND-\r\nHODGMAN";
+            this.lblTitulo.Text = "WEILER-\r\nATHERTON";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // btnCalcular
@@ -114,7 +113,7 @@
             this.lblInstrucciones.Name = "lblInstrucciones";
             this.lblInstrucciones.Size = new System.Drawing.Size(170, 80);
             this.lblInstrucciones.TabIndex = 3;
-            this.lblInstrucciones.Text = "Da un click en el área para activarla.\n\nClick izquierdo:\nAgrega punto\n\nClick derecho:\nTermina figura";
+            this.lblInstrucciones.Text = "Da un click en el �rea para activarla.\n\nClick izquierdo:\nAgrega punto\n\nClick derecho:\nTermina figura";
             this.lblInstrucciones.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             // 
             // lblResultado
@@ -126,7 +125,7 @@
             this.lblResultado.TabIndex = 4;
             this.lblResultado.Text = "";
             // 
-            // FrmRecortePoligono
+            // FrmWeilerAtherton
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -134,9 +133,10 @@
             this.ClientSize = new System.Drawing.Size(830, 524);
             this.Controls.Add(this.pnlMenu);
             this.Controls.Add(this.picCanvas);
-            this.Name = "FrmRecortePoligono";
-            this.Text = "Sutherland-Hodgman - Recorte de Polígonos";
-            this.Load += new System.EventHandler(this.FrmRecortePoligono_Load);
+            this.Name = "FrmWeilerAtherton";
+            this.Text = "Algoritmo Weiler-Atherton";
+            this.Load += new System.EventHandler(this.FrmWeilerAtherton_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.FrmWeilerAtherton_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.picCanvas)).EndInit();
             this.pnlMenu.ResumeLayout(false);
             this.ResumeLayout(false);

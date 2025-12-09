@@ -1,48 +1,48 @@
-Ôªøusing System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Ayo_Alisson_Algoritmos
 {
-    public partial class FrmRecortePoligono : Form
+    public partial class FrmWeilerAtherton : Form
     {
-        private static FrmRecortePoligono _instance;
-        private AlgoritmoSutherlandHodgman algoritmo = new AlgoritmoSutherlandHodgman();
-        private List<Point> puntosPoligonoActual = new List<Point>();
+        private static FrmWeilerAtherton _instance;
+        private AlgoritmoWeilerAtherton algoritmo = new AlgoritmoWeilerAtherton();
+        private List<Point> puntosClick = new List<Point>();
         private List<Point> figuraActual = null;
         private List<Point> figuraRecortada = null;
         private Graphics g;
         private Pen penOriginal = new Pen(Color.Blue, 2);
-        private Pen penRecortado = new Pen(Color.Red, 3);
+        private Pen penRecortado = new Pen(Color.Green, 3);
         private Pen penRectangulo = new Pen(Color.Black, 2);
+        private bool dibujarPoligono = false;
         
-        // Rect√°ngulo de recorte predefinido
+        // Rect·ngulo de recorte predefinido
         private int xmin = 150;
         private int ymin = 100;
         private int xmax = 450;
         private int ymax = 400;
 
-        public static FrmRecortePoligono Instance
+        public static FrmWeilerAtherton Instance
         {
             get
             {
                 if (_instance == null || _instance.IsDisposed)
                 {
-                    _instance = new FrmRecortePoligono();
+                    _instance = new FrmWeilerAtherton();
                 }
                 return _instance;
             }
         }
 
-        public FrmRecortePoligono()
+        public FrmWeilerAtherton()
         {
             InitializeComponent();
-            this.FormClosing += FrmRecortePoligono_FormClosing;
+            this.FormClosing += FrmWeilerAtherton_FormClosing;
         }
 
-        private void FrmRecortePoligono_FormClosing(object sender, FormClosingEventArgs e)
+        private void FrmWeilerAtherton_FormClosing(object sender, FormClosingEventArgs e)
         {
             LiberarRecursos();
         }
@@ -84,7 +84,7 @@ namespace Ayo_Alisson_Algoritmos
                 
                 using (Font font = new Font("Arial", 10, FontStyle.Bold))
                 {
-                    g.DrawString("√Årea de Recorte", font, Brushes.Black, xmin + 10, ymin + 10);
+                    g.DrawString("¡rea de Recorte", font, Brushes.Black, xmin + 10, ymin + 10);
                 }
             }
         }
@@ -99,31 +99,28 @@ namespace Ayo_Alisson_Algoritmos
                 
                 DibujarRectanguloRecorte();
                 
-                // Redibujar pol√≠gono actual si existe
                 if (figuraActual != null && figuraActual.Count >= 3)
                 {
                     g.DrawPolygon(penOriginal, figuraActual.ToArray());
                     
-                    // Dibujar puntos
                     foreach (var punto in figuraActual)
                     {
                         g.FillEllipse(Brushes.Blue, punto.X - 3, punto.Y - 3, 6, 6);
                     }
                 }
                 
-                // Redibujar pol√≠gono en progreso
-                if (puntosPoligonoActual.Count > 0)
+                if (puntosClick.Count > 0)
                 {
-                    foreach (var punto in puntosPoligonoActual)
+                    foreach (var punto in puntosClick)
                     {
                         g.FillEllipse(Brushes.Blue, punto.X - 3, punto.Y - 3, 6, 6);
                     }
                     
-                    if (puntosPoligonoActual.Count > 1)
+                    if (puntosClick.Count > 1)
                     {
-                        for (int i = 0; i < puntosPoligonoActual.Count - 1; i++)
+                        for (int i = 0; i < puntosClick.Count - 1; i++)
                         {
-                            g.DrawLine(penOriginal, puntosPoligonoActual[i], puntosPoligonoActual[i + 1]);
+                            g.DrawLine(penOriginal, puntosClick[i], puntosClick[i + 1]);
                         }
                     }
                 }
@@ -134,60 +131,54 @@ namespace Ayo_Alisson_Algoritmos
         {
             if (figuraActual == null || figuraActual.Count < 3)
             {
-                MessageBox.Show("Debes dibujar al menos un pol√≠gono primero", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Debes dibujar al menos un polÌgono primero", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             RedibujarTodo();
             
-            List<Point> poligonoRecortado = algoritmo.RecortarPoligono(figuraActual, xmin, ymin, xmax, ymax);
+            figuraRecortada = algoritmo.RecortarPoligono(figuraActual, xmin, ymin, xmax, ymax);
             
-            // Verificar estado del pol√≠gono
-            if (poligonoRecortado.Count == 0)
+            if (figuraRecortada.Count == 0)
             {
-                // Totalmente FUERA
-                lblResultado.Text = "RESULTADOS:\n\nPol√≠gono\ncompletamente\nFUERA";
-                MessageBox.Show("El pol√≠gono est√° completamente FUERA del √°rea de recorte", 
+                lblResultado.Text = "RESULTADOS:\n\nPolÌgono\ncompletamente\nFUERA";
+                MessageBox.Show("El polÌgono est· completamente FUERA del ·rea de recorte", 
                               "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (TodosPuntosDentro(figuraActual))
             {
-                // Totalmente DENTRO (todos los puntos originales est√°n dentro)
                 if (g != null) g.Dispose();
                 g = picCanvas.CreateGraphics();
                 
-                using (SolidBrush brush = new SolidBrush(Color.FromArgb(100, Color.Red)))
+                using (SolidBrush brush = new SolidBrush(Color.FromArgb(100, Color.Green)))
                 {
-                    g.FillPolygon(brush, poligonoRecortado.ToArray());
+                    g.FillPolygon(brush, figuraRecortada.ToArray());
                 }
-                g.DrawPolygon(penRecortado, poligonoRecortado.ToArray());
+                g.DrawPolygon(penRecortado, figuraRecortada.ToArray());
                 
-                lblResultado.Text = $"RESULTADOS:\n\nPol√≠gono\ncompletamente\nDENTRO\n{poligonoRecortado.Count} v√©rtices";
-                MessageBox.Show($"El pol√≠gono est√° completamente DENTRO del √°rea de recorte\n\n" +
-                              $"No requiere recorte\nV√©rtices: {poligonoRecortado.Count}", 
+                lblResultado.Text = $"RESULTADOS:\n\nPolÌgono\ncompletamente\nDENTRO\n{figuraRecortada.Count} vÈrtices";
+                MessageBox.Show($"El polÌgono est· completamente DENTRO del ·rea de recorte\n\n" +
+                              $"No requiere recorte\nVÈrtices: {figuraRecortada.Count}", 
                               "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                // RECORTADO (hay puntos dentro y fuera)
                 if (g != null) g.Dispose();
                 g = picCanvas.CreateGraphics();
                 
-                // Redibujar todo primero
                 DibujarRectanguloRecorte();
                 g.DrawPolygon(penOriginal, figuraActual.ToArray());
                 
-                // Dibujar pol√≠gono recortado
-                using (SolidBrush brush = new SolidBrush(Color.FromArgb(100, Color.Red)))
+                using (SolidBrush brush = new SolidBrush(Color.FromArgb(100, Color.Green)))
                 {
-                    g.FillPolygon(brush, poligonoRecortado.ToArray());
+                    g.FillPolygon(brush, figuraRecortada.ToArray());
                 }
-                g.DrawPolygon(penRecortado, poligonoRecortado.ToArray());
+                g.DrawPolygon(penRecortado, figuraRecortada.ToArray());
                 
-                lblResultado.Text = $"RESULTADOS:\n\nPol√≠gono\nRECORTADO\n\nOriginal: {figuraActual.Count}\nRecortado: {poligonoRecortado.Count}";
-                MessageBox.Show($"Pol√≠gono recortado exitosamente!\n\n" +
-                              $"V√©rtices originales: {figuraActual.Count}\n" +
-                              $"V√©rtices recortados: {poligonoRecortado.Count}", 
+                lblResultado.Text = $"RESULTADOS:\n\nPolÌgono\nRECORTADO\n\nOriginal: {figuraActual.Count}\nRecortado: {figuraRecortada.Count}";
+                MessageBox.Show($"PolÌgono recortado exitosamente!\n\n" +
+                              $"VÈrtices originales: {figuraActual.Count}\n" +
+                              $"VÈrtices recortados: {figuraRecortada.Count}", 
                               "Recorte Completado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -206,7 +197,7 @@ namespace Ayo_Alisson_Algoritmos
 
         private void btnReiniciar_Click(object sender, EventArgs e)
         {
-            puntosPoligonoActual.Clear();
+            puntosClick.Clear();
             figuraActual = null;
             figuraRecortada = null;
             lblResultado.Text = "";
@@ -223,41 +214,28 @@ namespace Ayo_Alisson_Algoritmos
             {
                 if (figuraActual != null) return;
                 
-                puntosPoligonoActual.Add(new Point(e.X, e.Y));
+                puntosClick.Add(new Point(e.X, e.Y));
                 RedibujarTodo();
             }
-            else if (e.Button == MouseButtons.Right && puntosPoligonoActual.Count >= 3)
+            else if (e.Button == MouseButtons.Right && puntosClick.Count >= 3)
             {
-                // Cerrar el pol√≠gono
-                figuraActual = new List<Point>(puntosPoligonoActual);
-                puntosPoligonoActual.Clear();
+                figuraActual = new List<Point>(puntosClick);
+                puntosClick.Clear();
                 
                 RedibujarTodo();
             }
         }
 
-        private void FrmRecortePoligono_Load(object sender, EventArgs e)
+        private void FrmWeilerAtherton_Load(object sender, EventArgs e)
         {
-            this.Text = "Algoritmo Sutherland-Hodgman - Recorte de Pol√≠gonos";
+            this.Text = "Algoritmo Weiler-Atherton - Recorte de PolÌgonos";
             lblResultado.Text = "";
             DibujarRectanguloRecorte();
         }
 
-        private void FrmRecortePoligono_Paint(object sender, PaintEventArgs e)
+        private void FrmWeilerAtherton_Paint(object sender, PaintEventArgs e)
         {
             RedibujarTodo();
-        }
-
-        private void btnDibujar_Click(object sender, EventArgs e)
-        {
-            // M√©todo anterior mantenido por compatibilidad
-            DibujarRectanguloRecorte();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            // Redirigir al nuevo m√©todo
-            btnCalcular_Click(sender, e);
         }
     }
 }
